@@ -37,6 +37,4 @@ class Transactions(models.Model):
             return f"{formatted_date}: {self.sum} {account_display}, {self.description}"
         else:
             return f"{self.status} {formatted_date}: {self.sum} {account_display}, {self.description}"
-        
-
-#bob
+      

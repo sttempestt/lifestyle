@@ -1,15 +1,12 @@
 from django import forms
 from .models import Transactions, Category
 
-class TransactionsCreateForm(forms.ModelForm):
+class TransactionsForm(forms.ModelForm):
     class Meta:
         model = Transactions
         fields = "__all__"
 
-class CategoryCreateForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ("name")
-
-
-        #bob
+        fields = "__all__"
