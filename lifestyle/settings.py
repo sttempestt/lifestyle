@@ -55,8 +55,9 @@ ROOT_URLCONF = 'lifestyle.urls'
 
 AUTHENTICATION_BACKENDS = [
     "users.backends.email_or_username.EmailOrUsernameModelBackend",
-    "django.contrib.auth.backends.ModelBackend",
 ]
+
+AUTH_USER_MODEL = "users.CustomUser"
 
 TEMPLATES = [
     {
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+				'users.context_processors.add_user_to_context',
             ],
         },
     },
