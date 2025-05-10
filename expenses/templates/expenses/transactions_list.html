@@ -11,7 +11,8 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Transactions</h2>
+    <h2>Completed transactions</h2>
+    <a href="?show_all=true">Show All Transactions</a>
     <table>
         <tr>
             {% for transaction in object %}

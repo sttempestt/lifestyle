@@ -14,6 +14,13 @@ class HomeView(TemplateView):
 class TransactionsView(ListView):
     template_name = 'expenses/transactions_list.html'
     model = Transactions
+    
+    def get_queryset(self):
+        show_all = self.request.GET.get("show_all") == "false"
+        if show_all:
+            return Transactions.objects.all()
+        else:
+            return Transactions.objects.filter(status="completed")
 
 class CreateTransactionView(CreateView):
     template_name = 'expenses/create_transaction.html'
