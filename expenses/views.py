@@ -12,7 +12,7 @@ class HomeView(TemplateView):
         return context
     
 class TransactionsView(ListView):
-    template_name = 'expenses/transactions_list.html'
+    template_name = 'expenses/transaction_management/transactions_list.html'
     model = Transactions
     
     def get_queryset(self):
@@ -23,16 +23,16 @@ class TransactionsView(ListView):
             return Transactions.objects.filter(status="completed")
 
 class CreateTransactionView(CreateView):
-    template_name = 'expenses/create_transaction.html'
+    template_name = 'expenses/transaction_management/create_transaction.html'
     model = Transactions
 
 class UpdateTransactionView(UpdateView):
-    template_name = 'expenses/update_transaction.html'
+    template_name = 'expenses/transaction_management/update_transaction.html'
     model = Transactions
     form_class = TransactionsForm
 
 class DeleteTransactionView(DeleteView):
-    template_name = 'expenses/delete_transaction.html'
+    template_name = 'expenses/transaction_management/delete_transaction.html'
     model = Transactions
     form_class = TransactionsForm
     success_url='/transactions_list'
