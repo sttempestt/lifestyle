@@ -1,0 +1,48 @@
+{% block content %}
+  <header class="header">
+    <nav class="nav">
+      <div class="block">
+        <a class="link" href="{% url 'home' %}">Home</a>
+      </div>
+      <div class="block">
+        {% if user %}
+          <form action="{% url 'logout' %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <button class="button" type="submit">Log out</button>
+          </form>
+        {% else %}
+          <a class="button" href="{% url 'login' %}">Log in</a>
+          <a class="button" href="{% url 'registration' %}">Registration</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+  <style>
+  .header {
+    width: 100%;
+    padding: 6px 10px;
+    .nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .button {
+      padding: 4px 6px;
+      border: none;
+      cursor: pointer;
+      background: blue;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+    }
+  }
+  </style>
+{% endblock %}

@@ -1,17 +1,12 @@
 {% extends 'expenses/base.html' %}
-{% block head %}
-{% endblock %}
-
-{% block content%}
-<p>
-    home
-
-    
-    {% if user %}
-        <p>Hello {{user.username}}!</p>
-    {% else %}
-        <p>You are not logged in</p>
-    {% endif %}
-        
-</p>
+{% block head %}{% endblock %}
+{% block content %}
+    <p>
+        home
+        {% if user %}
+            <p>Hello {{ user.username }}!</p>
+        {% else %}
+            <p>You are not logged in</p>
+        {% endif %}
+    </p>
 {% endblock %}
