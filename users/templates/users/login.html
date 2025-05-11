@@ -1,17 +1,10 @@
 {% extends "expenses/base.html" %}
-
 {% block head %}
-
 {% endblock head %}
-
-
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">
-        submit
-    </button>
-</form>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">submit</button>
+    </form>
 {% endblock content %}
-
