@@ -19,11 +19,16 @@ class TransactionsView(ListView):
     model = Transactions
 
     def get_queryset(self):
-        show_all = self.request.GET.get("show_all") == "false"
-        if show_all:
+        self.show_all = self.request.GET.get("show_all") == "true"
+        if self.show_all:
             return Transactions.objects.all()
         else:
             return Transactions.objects.filter(status="completed")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["show_all"] = self.show_all
+        return context
 
 
 class CreateTransactionView(CreateView):
