@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from .models import Transactions, Category
 from .forms import TransactionsForm, CategoryForm
 from django.views.generic import TemplateView, ListView
@@ -34,12 +35,16 @@ class TransactionsView(ListView):
 class CreateTransactionView(CreateView):
     template_name = 'expenses/transaction_management/create_transaction.html'
     model = Transactions
+    fields = "__all__"
+    success_url = reverse_lazy('transactions_list')
 
 
 class UpdateTransactionView(UpdateView):
     template_name = 'expenses/transaction_management/update_transaction.html'
     model = Transactions
     form_class = TransactionsForm
+    fields = "__all__"
+    success_url = reverse_lazy('transactions_list')
 
 
 class DeleteTransactionView(DeleteView):
@@ -47,3 +52,5 @@ class DeleteTransactionView(DeleteView):
     model = Transactions
     form_class = TransactionsForm
     success_url = "/transactions_list"
+    fields = "__all__"
+    success_url = reverse_lazy('transactions_list')

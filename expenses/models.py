@@ -27,8 +27,8 @@ class Transactions(models.Model):
     sum = models.DecimalField(max_digits=10, decimal_places=2)
     account = models.CharField(choices=types, max_length=1)
     date_completed = models.DateTimeField(default=timezone.now, blank=True)
-    date_created = models.DateTimeField(null=True)
-    date_expected = models.DateTimeField(null=True)
+    date_created = models.DateTimeField(null=True, blank=True)
+    date_expected = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=statuses, max_length=1, default=C, blank=True)
     def __str__(self):
         formatted_date = self.date_completed.strftime("%Y-%m-%d %H:%M")  
