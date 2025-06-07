@@ -34,10 +34,10 @@ class TransactionsView(ListView):
 
 
 class CreateTransactionView(CreateView):
-    template_name = 'expenses/transaction_management/create_transaction.html'
+    template_name = "expenses/transaction_management/create_transaction.html"
     model = Transactions
     fields = "__all__"
-    success_url = reverse_lazy('transactions_list')
+    success_url = reverse_lazy("transactions_list")
 
 
 class UpdateTransactionView(UpdateView):
@@ -45,7 +45,7 @@ class UpdateTransactionView(UpdateView):
     model = Transactions
     form_class = TransactionsForm
     fields = "__all__"
-    success_url = reverse_lazy('transactions_list')
+    success_url = reverse_lazy("transactions_list")
 
 
 class DeleteTransactionView(DeleteView):
@@ -54,7 +54,7 @@ class DeleteTransactionView(DeleteView):
     form_class = TransactionsForm
     success_url = "/transactions_list"
     fields = "__all__"
-    success_url = reverse_lazy('transactions_list')
+    success_url = reverse_lazy("transactions_list")
 
 
 class ProfileView(TemplateView):
