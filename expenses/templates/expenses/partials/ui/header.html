@@ -6,6 +6,7 @@
       </div>
       <div class="block">
         {% if user %}
+          <a class="button" href="{% url 'profile' %}">Profile</a>
           <form action="{% url 'logout' %}" method="post" style="display: inline">
             {% csrf_token %}
             <button class="button" type="submit">Log out</button>

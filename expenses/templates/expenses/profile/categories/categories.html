@@ -1,0 +1,17 @@
+{% extends 'expenses/base.html' %}
+{% block head %}{% endblock %}
+{% block content %}
+  <div>
+    <h2>Ваши категории</h2>
+    <a href="{% url 'create_categories' %}">Добавить категорию</a>
+    <ul>
+      {% for category in categories %}
+        <li>
+          {{ category.name }}
+          <a href="{% url 'update_categories' category.pk %}">Редактировать</a>
+          <a href="{% url 'delete_categories' category.pk %}">Удалить</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

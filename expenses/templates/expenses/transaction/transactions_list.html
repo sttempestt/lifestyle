@@ -16,7 +16,7 @@
     <table>
         <tr>
             {% for transaction in object %}
-            {% if transaction.account == 'S' %}    
+            {% if transaction.account == 'S' %}
                 <p class="red">-<p><td class="red">{{ transaction.sum }}</td>
             {% else %}   
                 <td class="green">{{ transaction.sum }}</td>
