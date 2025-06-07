@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 class HomeView(TemplateView):
-    template_name = "expenses/pages/home.html"
+    template_name = "expenses/home.html"
 
     def get_context_data(self):
         context = super().get_context_data()
