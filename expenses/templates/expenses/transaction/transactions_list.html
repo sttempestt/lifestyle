@@ -12,7 +12,14 @@
 
 {% block content %}
     <h2>Completed transactions</h2>
-    <a href="?show_all=true">Show All Transactions</a>
+    {% if show_all %}
+        <p>You're currently viewing <strong>all</strong> transactions.</p>
+        <a href="?show_all=false">Hide incomplete</a>
+    {% else %}
+        <p>You're only seeing <strong>completed</strong> transactions.</p>
+        <a href="?show_all=true">Show all</a>
+    {% endif %}
+        <a href="{% url 'create_transaction' %}">Create new </a>
     <table>
         <tr>
             {% for transaction in object %}
