@@ -34,7 +34,7 @@ class TransactionsView(ListView):
 
 
 class CreateTransactionView(CreateView):
-    template_name = "expenses/transaction_management/create_transaction.html"
+    template_name = "expenses/transaction/create_transaction.html"
     model = Transactions
     fields = "__all__"
     success_url = reverse_lazy("transactions_list")
@@ -52,7 +52,6 @@ class DeleteTransactionView(DeleteView):
     template_name = "expenses/transaction/delete_transaction.html"
     model = Transactions
     form_class = TransactionsForm
-    success_url = "/transactions_list"
     fields = "__all__"
     success_url = reverse_lazy("transactions_list")
 
@@ -73,8 +72,8 @@ class CategoryListView(ListView):
 class CategoryCreateView(CreateView):
     template_name = "expenses/profile/categories/create.html"
     model = Category
-    form_class = CategoryForm
     success_url = reverse_lazy("categories")
+    fields = ["name", "icon"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
