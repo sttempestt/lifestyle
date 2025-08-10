@@ -36,7 +36,7 @@ class TransactionsView(ListView):
 class CreateTransactionView(CreateView):
     template_name = "expenses/transaction/create_transaction.html"
     model = Transactions
-    fields = "__all__"
+    form_class = TransactionsForm
     success_url = reverse_lazy("transactions_list")
 
 
@@ -44,7 +44,6 @@ class UpdateTransactionView(UpdateView):
     template_name = "expenses/transaction/update_transaction.html"
     model = Transactions
     form_class = TransactionsForm
-    fields = "__all__"
     success_url = reverse_lazy("transactions_list")
 
 
@@ -52,7 +51,6 @@ class DeleteTransactionView(DeleteView):
     template_name = "expenses/transaction/delete_transaction.html"
     model = Transactions
     form_class = TransactionsForm
-    fields = "__all__"
     success_url = reverse_lazy("transactions_list")
 
 
@@ -73,7 +71,7 @@ class CategoryCreateView(CreateView):
     template_name = "expenses/profile/categories/create.html"
     model = Category
     success_url = reverse_lazy("categories")
-    fields = ["name", "icon"]
+    form_class = CategoryForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -93,7 +91,6 @@ class CategoryUpdateView(UpdateView):
 class CategoryDeleteView(DeleteView):
     template_name = "expenses/profile/categories/delete.html"
     model = Category
-    form_class = CategoryForm
     success_url = reverse_lazy("categories")
 
     def get_queryset(self):
