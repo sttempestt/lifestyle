@@ -34,7 +34,7 @@ class TransactionsView(ListView):
 
 
 class CreateTransactionView(CreateView):
-    template_name = "expenses/transaction_management/create_transaction.html"
+    template_name = "expenses/transaction/create_transaction.html"
     model = Transactions
     fields = "__all__"
     success_url = reverse_lazy("transactions_list")
