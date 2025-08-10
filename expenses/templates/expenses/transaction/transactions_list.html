@@ -21,8 +21,8 @@
     {% endif %}
         <a href="{% url 'create_transaction' %}">Create new </a>
     <table>
+            {% for transaction in object_list %}
         <tr>
-            {% for transaction in object %}
             {% if transaction.account == 'S' %}
                 <p class="red">-<p><td class="red">{{ transaction.sum }}</td>
             {% else %}   
@@ -34,11 +34,19 @@
                 
             {% if transaction.status == 'E' or 'P' %}    
                 <td>{{ transaction.date_expected }}</td>
-                <td>{{ transaction.status }}</td>
+            <td>
+                {% if transaction.status == 'C' %}
+                <p> ✅ </p>
+                {% elif transaction.status == 'E' %}
+                <p> 🗓️ </p>
+                {% else %}
+                <p> ⏱  </p>
+                {% endif %}
+            </td>
                 <td>{{ transaction.date_created }}</td>
             {% endif %}
    
-            {% endfor %}
         </tr>
+            {% endfor %}
     </table>
 {% endblock %}
