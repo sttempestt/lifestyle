@@ -29,7 +29,10 @@
                 <td class="green">{{ transaction.sum }}</td>
             {% endif %}
                 <td>{{ transaction.date_completed }}</td>
-                <td>{{ transaction.description }}</td>
+                <td>
+                {% if transaction.description %}
+                <p> {{ transaction.description }}</p>
+            </td>
                 <td>{{ transaction.category }}</td>
                 
             {% if transaction.status == 'E' or 'P' %}    
