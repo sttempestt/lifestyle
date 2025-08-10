@@ -1,3 +1,14 @@
 {% extends 'expenses/base.html' %}
-{% block head %}{% endblock %}
-{% block content %}test{% endblock %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<h1>Create Category</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+</form>
+
+<a href="{% url 'categories' %}">Back to categories list</a>
+{% endblock %}

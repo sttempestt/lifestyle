@@ -2,14 +2,14 @@
 {% block head %}{% endblock %}
 {% block content %}
   <div>
-    <h2>Ваши категории</h2>
-    <a href="{% url 'create_categories' %}">Добавить категорию</a>
+    <h2>Categories</h2>
+    <a href="{% url 'create_categories' %}">Add Category</a>
     <ul>
       {% for category in categories %}
         <li>
           {{ category.name }}
-          <a href="{% url 'update_categories' category.pk %}">Редактировать</a>
-          <a href="{% url 'delete_categories' category.pk %}">Удалить</a>
+          <a href="{% url 'update_categories' category.pk %}">Update</a>
+          <a href="{% url 'delete_categories' category.pk %}">Delete</a>
         </li>
       {% endfor %}
     </ul>
