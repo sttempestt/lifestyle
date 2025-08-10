@@ -1,3 +1,10 @@
 {% extends 'expenses/base.html' %}
 {% block head %}{% endblock %}
-{% block content %}delete{% endblock %}
+{% block content %}
+    <h2>Confirm deletion of category "{{ object.name }}"</h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">delete</button>
+      <a href="{% url 'categories' %}">cancel</a>
+    </form>
+{% endblock %}
