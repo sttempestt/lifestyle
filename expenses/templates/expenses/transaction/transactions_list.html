@@ -23,16 +23,27 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Completed transactions</h2>
-    {% if show_all %}
-        <p>You're currently viewing <strong>all</strong> transactions.</p>
-        <a href="?show_all=false">Hide incomplete</a>
-    {% else %}
-        <p>You're only seeing <strong>completed</strong> transactions.</p>
-        <a href="?show_all=true">Show all</a>
-    {% endif %}
-    <a href="{% url 'create_transaction' %}">Create new</a>
+    <h2>All transactions</h2>
 
+    <form>
+      <select name="status">
+        <option value="">All</option>
+        {% for status_value, status_display in statuses %}
+          <option value="{{ status_value }}" {% if statusSelected == status_value %}selected{% endif %}>{{ status_display }}</option>
+        {% endfor %}
+      </select>
+      <select name="category">
+        <option value="">All</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if categorySelected == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+      <button>
+        Filter
+      </button>
+    </form>
+
+    <a href="{% url 'create_transaction' %}">Create new</a>
     <table>
         <thead>
             <tr>
