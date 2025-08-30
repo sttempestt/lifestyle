@@ -5,6 +5,9 @@
         home
         {% if user %}
             <p>Hello {{ user.username }}!</p>
+            <p>Current Balance</p>
+            <p> {{ transactions.calculate_balance }} </p>
+            <a href="{% url 'transactions_list' %}">Transaction List</a>
         {% else %}
             <p>You are not logged in</p>
         {% endif %}
