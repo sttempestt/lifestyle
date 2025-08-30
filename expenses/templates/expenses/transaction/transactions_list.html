@@ -29,11 +29,16 @@
                 <td class="green">{{ transaction.sum }}</td>
             {% endif %}
                 <td>{{ transaction.date_completed }}</td>
-                <td>{{ transaction.description }}</td>
+                <td>
+                {% if transaction.description %}
+                <p> {{ transaction.description }}</p>
+                {% endif %}
+            </td>
                 <td>{{ transaction.category }}</td>
                 
             {% if transaction.status == 'E' or 'P' %}    
                 <td>{{ transaction.date_expected }}</td>
+            {% endif %}
             <td>
                 {% if transaction.status == 'C' %}
                 <p> ✅ </p>
@@ -43,9 +48,6 @@
                 <p> ⏱  </p>
                 {% endif %}
             </td>
-                <td>{{ transaction.date_created }}</td>
-            {% endif %}
-   
         </tr>
             {% endfor %}
     </table>
