@@ -27,7 +27,7 @@ class TransactionsView(ListView):
         status = self.request.GET.get("status", "")
 
         if category:
-            queryset = queryset.filter(category=category)
+            queryset = queryset.filter(category_id=category)
 
         if status:
             queryset = queryset.filter(status=status)
@@ -36,6 +36,10 @@ class TransactionsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        context["statuses"] = Transactions.statuses
+        context["statusSelected"] = self.request.GET.get("status", "")
+        context["categorySelected"] = self.request.GET.get("category", "")
 
         return context
 
