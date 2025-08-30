@@ -39,6 +39,10 @@ class CreateTransactionView(CreateView):
     form_class = TransactionsForm
     success_url = reverse_lazy("transactions_list")
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # привязка к текущему пользователю
+        return super().form_valid(form)
+
 
 class UpdateTransactionView(UpdateView):
     template_name = "expenses/transaction/update_transaction.html"
