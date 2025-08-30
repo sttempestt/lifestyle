@@ -7,6 +7,18 @@
         .green {
             color: green;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
     </style>
 {% endblock %}
 
@@ -19,36 +31,53 @@
         <p>You're only seeing <strong>completed</strong> transactions.</p>
         <a href="?show_all=true">Show all</a>
     {% endif %}
-        <a href="{% url 'create_transaction' %}">Create new </a>
+    <a href="{% url 'create_transaction' %}">Create new</a>
+
     <table>
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Date Completed</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Date Expected</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for transaction in object_list %}
-        <tr>
-            {% if transaction.account == 'S' %}
-                <p class="red">-<p><td class="red">{{ transaction.sum }}</td>
-            {% else %}   
-                <td class="green">{{ transaction.sum }}</td>
-            {% endif %}
-                <td>{{ transaction.date_completed }}</td>
-                <td>
-                {% if transaction.description %}
-                <p> {{ transaction.description }}</p>
-                {% endif %}
-            </td>
-                <td>{{ transaction.category }}</td>
-                
-            {% if transaction.status == 'E' or 'P' %}    
-                <td>{{ transaction.date_expected }}</td>
-            {% endif %}
-            <td>
-                {% if transaction.status == 'C' %}
-                <p> ✅ </p>
-                {% elif transaction.status == 'E' %}
-                <p> 🗓️ </p>
+            <tr>
+                {% if transaction.account == 'S' %}
+                    <td class="red">-{{ transaction.sum }}</td>
                 {% else %}
-                <p> ⏱  </p>
+                    <td class="green">{{ transaction.sum }}</td>
                 {% endif %}
-            </td>
-        </tr>
+
+                <td>{{ transaction.date_completed }}</td>
+                <td>{{ transaction.description|default:"—" }}</td>
+                <td>{{ transaction.category }}</td>
+
+                {% if transaction.status == 'E' or transaction.status == 'P' %}
+                    <td>{{ transaction.date_expected }}</td>
+                {% else %}
+                    <td>—</td>
+                {% endif %}
+
+                <td>
+                    {% if transaction.status == 'C' %}
+                        ✅
+                    {% elif transaction.status == 'E' %}
+                        🗓️
+                    {% else %}
+                        ⏱
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No transactions found.</td>
+            </tr>
             {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

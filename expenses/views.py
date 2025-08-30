@@ -18,18 +18,25 @@ class HomeView(TemplateView):
 
 class TransactionsView(ListView):
     template_name = "expenses/transaction/transactions_list.html"
-    model = Transactions
 
     def get_queryset(self):
-        self.show_all = self.request.GET.get("show_all") == "true"
-        if self.show_all:
-            return Transactions.objects.all()
-        else:
-            return Transactions.objects.filter(status="completed")
+        queryset = Transactions.objects.filter(user=self.request.user)
+
+        # self.show_all = self.request.GET.get("show_all") == "true"
+        category = self.request.GET.get("category", "")
+        status = self.request.GET.get("status", "")
+
+        if category:
+            queryset = queryset.filter(category=category)
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["show_all"] = self.show_all
+
         return context
 
 
