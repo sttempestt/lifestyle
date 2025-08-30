@@ -52,12 +52,4 @@ class Transactions(models.Model):
         else:
             return f"{self.status} {formatted_date}: {self.sum} {account_display}, {self.description}"
         
-    def calculate_balance(self):
-        balance = 0
-        for transaction in Transactions:
-            if transaction.status == 'C':
-                if transaction.account == 'R':
-                    balance += transaction.sum
-                if transaction.account == 'S':
-                    balance -= transaction.sum
-        return balance
+ 
