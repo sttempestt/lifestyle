@@ -13,7 +13,7 @@ class HomeView(TemplateView):
     def get_context_data(self):
         context = super().get_context_data()
         context["transactions"] = Transactions.objects.all()
-        transactions = Transactions.objects.filter(user=request.user)
+        transactions = Transactions.objects.filter(user=self.request.user)
         balance = 0
         for transaction in transactions:
             if transaction.status == 'C':
@@ -21,6 +21,7 @@ class HomeView(TemplateView):
                     balance += transaction.sum
                 if transaction.account == 'S':
                     balance -= transaction.sum
+        context["balance"] = balance
         return context
 
 
