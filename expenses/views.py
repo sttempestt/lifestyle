@@ -1,39 +1,31 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Transactions, Category
 from .forms import TransactionsForm, CategoryForm
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "expenses/home.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if not self.request.user.is_authenticated:
-            context["transactions"] = Transactions.objects.none()
-            context["balance"] = 0
-            return context
-
+    def get_context_data(self):
+        context = super().get_context_data()
+        context["transactions"] = Transactions.objects.all()
         transactions = Transactions.objects.filter(user=self.request.user)
-        context["transactions"] = transactions
-
         balance = 0
         for transaction in transactions:
-            if transaction.status == "C":
-                if transaction.account == "R":
+            if transaction.status == 'C':
+                if transaction.account == 'R':
                     balance += transaction.sum
-                elif transaction.account == "S":
+                if transaction.account == 'S':
                     balance -= transaction.sum
-
         context["balance"] = balance
         return context
 
 
-class TransactionsView(ListView):
+class TransactionsView(LoginRequiredMixin, ListView):
     template_name = "expenses/transaction/transactions_list.html"
 
     def get_queryset(self):
@@ -61,7 +53,7 @@ class TransactionsView(ListView):
         return context
 
 
-class CreateTransactionView(CreateView):
+class CreateTransactionView(LoginRequiredMixin, CreateView):
     template_name = "expenses/transaction/create_transaction.html"
     model = Transactions
     form_class = TransactionsForm
@@ -90,7 +82,7 @@ class ProfileView(TemplateView):
     template_name = "expenses/profile/profile.html"
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     template_name = "expenses/profile/categories/categories.html"
     model = Category
     context_object_name = "categories"
@@ -99,7 +91,7 @@ class CategoryListView(ListView):
         return Category.objects.filter(user=self.request.user)
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     template_name = "expenses/profile/categories/create.html"
     model = Category
     success_url = reverse_lazy("categories")
@@ -110,7 +102,7 @@ class CategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "expenses/profile/categories/update.html"
     model = Category
     form_class = CategoryForm
@@ -120,7 +112,7 @@ class CategoryUpdateView(UpdateView):
         return Category.objects.filter(user=self.request.user)
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "expenses/profile/categories/delete.html"
     model = Category
     success_url = reverse_lazy("categories")
