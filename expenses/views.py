@@ -10,17 +10,25 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 class HomeView(TemplateView):
     template_name = "expenses/home.html"
 
-    def get_context_data(self):
-        context = super().get_context_data()
-        context["transactions"] = Transactions.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if not self.request.user.is_authenticated:
+            context["transactions"] = Transactions.objects.none()
+            context["balance"] = 0
+            return context
+
         transactions = Transactions.objects.filter(user=self.request.user)
+        context["transactions"] = transactions
+
         balance = 0
         for transaction in transactions:
-            if transaction.status == 'C':
-                if transaction.account == 'R':
+            if transaction.status == "C":
+                if transaction.account == "R":
                     balance += transaction.sum
-                if transaction.account == 'S':
+                elif transaction.account == "S":
                     balance -= transaction.sum
+
         context["balance"] = balance
         return context
 
